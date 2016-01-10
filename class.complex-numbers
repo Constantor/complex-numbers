@@ -8,5 +8,47 @@
 #          \/           \/|__|       \/     \/          \/          \/     \/            \/     \/             \/               #
 #################################################################################################################################
 
+class complexNumbers {
+	public var $a, $b;
 
+	public function __construct($a, $b) {
+		$this->a = $a;
+		$this->b = $b;
+	}
+
+	public function getNumber() {
+		return $this->a.'*i+'.$this->b
+	}
+
+	public function addNumber($number) {
+		if(is_int($number))
+			$this->b += $number;
+		elseif(@get_class($number) == get_class($this)) {
+			$this->a += $number->a;
+			$this->b += $number->b;
+		}
+	}
+
+	public function multiplyNumber($number) {
+		if(is_int($number)) {
+			$this->a *= $number;
+			$this->b *= $number;
+		} elseif(@get_class($number) == get_class($this)) {
+			$this->a = $this->b*$number->a + $number->b*$this->a;
+			$this->b = $this->b*$number->b - $this->a*$number->a;
+		}
+	}
+
+	public function divideNumber($number) {
+		if(is_int($number)) {
+			$this->a /= $number;
+			$this->b /= $number;
+		} elseif(@get_class($number) == get_class($this)) {
+			$this->a = ($this->a*$number->b - $this->b*$number->a) / ($number->a*$number->a + $number->b*$number->b);
+			$this->b = ($this->b*$number->b + $this->a*$number->a) / ($number->a*$number->a + $number->b*$number->b);
+		}
+	}
+
+	public function powerNumber($exponent) for($i = 1;$i < $exponent;$i++) $this->multiplyNumber($this);
+}
 ?>
