@@ -20,7 +20,7 @@ class complexNumber {
 		return $this->a.'*i+'.$this->b
 	}
 
-	public function addNumber($number) {
+	public function add($number) {
 		if(is_int($number))
 			$this->b += $number;
 		elseif(@get_class($number) == get_class($this)) {
@@ -29,7 +29,7 @@ class complexNumber {
 		}
 	}
 
-	public function subtractNumber($number) {
+	public function subtract($number) {
 		if(is_int($number))
 			$this->b -= $number;
 		elseif(@get_class($number) == get_class($this)) {
@@ -38,7 +38,7 @@ class complexNumber {
 		}
 	}
 
-	public function multiplyNumber($number) {
+	public function multiply($number) {
 		if(is_int($number)) {
 			$this->a *= $number;
 			$this->b *= $number;
@@ -48,7 +48,7 @@ class complexNumber {
 		}
 	}
 
-	public function divideNumber($number) {
+	public function divide($number) {
 		if(is_int($number)) {
 			$this->a /= $number;
 			$this->b /= $number;
@@ -58,6 +58,6 @@ class complexNumber {
 		}
 	}
 
-	public function powerNumber($exponent) for($i = 1;$i < $exponent;$i++) $this->multiplyNumber($this);
+	public function power($exponent) for($i = 1;$i < $exponent;$i++) $this->multiplyNumber($this);
 }
 ?>
