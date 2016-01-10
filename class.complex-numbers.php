@@ -58,6 +58,6 @@ class complexNumber {
 		}
 	}
 
-	public function power($exponent) for($i = 1;$i < $exponent;$i++) $this->multiplyNumber($this);
+	public function power($exponent) if(is_numeric($exponent)) for($i = 1;$i < $exponent;$i++) $this->multiplyNumber($this);
 }
 ?>
