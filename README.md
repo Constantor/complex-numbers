@@ -10,7 +10,7 @@ This class support many main things to work with imaginary numbers, for example
   - divide complex by real
   - divide complex by complex
   - divide real by complex
-  - power complex number by real exponent
+  - power complex number by integer exponent
 
 ### How to use
 Include the class file in your code. Than you need create as many numbers as you need. Complex numbers in the class have the form a*i+b, where a and b is real and i is imaginary unit. To create complex number use code like this:
