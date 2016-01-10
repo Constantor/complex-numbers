@@ -29,6 +29,15 @@ class complexNumber {
 		}
 	}
 
+	public function subtractNumber($number) {
+		if(is_int($number))
+			$this->b -= $number;
+		elseif(@get_class($number) == get_class($this)) {
+			$this->a -= $number->a;
+			$this->b -= $number->b;
+		}
+	}
+
 	public function multiplyNumber($number) {
 		if(is_int($number)) {
 			$this->a *= $number;
