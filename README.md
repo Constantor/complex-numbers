@@ -51,6 +51,9 @@ License
 ---
 ##### Stepan Konstantinov
 I am on 
+
 [VKontakte](http://vk.com/stepankonstantinovboss)
+
 [CodeForces](http://codeforces.com/profile/Constantor)
+
 [FightCode](http://fightcodegame.com/profile/NaiKoNGod/)
