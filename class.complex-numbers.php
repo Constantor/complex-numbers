@@ -10,114 +10,88 @@
 
 class complexNumber {
 	public $a, $b;
-	private $ta, $tb;
 
-	public function __construct($a, $b) {
+	public function __construct($a = 0, $b = 0) {
 		$this->a = $a;
 		$this->b = $b;
 	}
 
 	public function getNumber() {
-		return $this->a.'*i+'.$this->b;
+		return $this->a.'+'.$this->b.'*i';
 	}
+
 
 	public function add($number) {
 		if(is_numeric($number))
-			$this->b += $number;
-		elseif(@get_class($number) == get_class($this)) {
-			$this->a += $number->a;
-			$this->b += $number->b;
-		}
+			return complexNumber($this->a + $number, $this->b);
+		elseif(@get_class($number) == get_class($this))
+			return complexNumber($this->a + $number->a, $this->b + $number->b);
 	}
 
-	public function subtract($number) {
+	public function sub($number) {
 		if(is_numeric($number))
-			$this->b -= $number;
-		elseif(@get_class($number) == get_class($this)) {
-			$this->a -= $number->a;
-			$this->b -= $number->b;
-		}
+			return complexNumber($this->a - $number, $this->b);
+		elseif(@get_class($number) == get_class($this))
+			return complexNumber($this->a - $number->a, $this->b - $number->b);
 	}
+
 
 	public function multiply($number) {
-		if(is_numeric($number)) {
-			$this->a *= $number;
-			$this->b *= $number;
-		} elseif(@get_class($number) == get_class($this)) {
-			$this->ta = $this->b*$number->a + $number->b*$this->a;
-			$this->tb = $this->b*$number->b - $this->a*$number->a;
-			$this->a = $this->ta;
-			$this->b = $this->tb;
-		}
+		if(is_numeric($number))
+			return complexNumber($this->a*$number, $this->b*$number);
+		elseif(@get_class($number) == get_class($this))
+			return complexNumber($this->a*$number->a - $this->b*$number->b, $this->b*$number->a + $this->a*$number->b);
 	}
 
 	public function divide($number) {
-		if(is_numeric($number)) {
-			$this->a /= $number;
-			$this->b /= $number;
-		} elseif(@get_class($number) == get_class($this)) {
-			$this->ta = ($this->a*$number->b - $this->b*$number->a) / ($number->a*$number->a + $number->b*$number->b);
-			$this->tb = ($this->b*$number->b + $this->a*$number->a) / ($number->a*$number->a + $number->b*$number->b);
-			$this->a = $this->ta;
-			$this->b = $this->tb;
-		}
+		if(is_numeric($number))
+			return complexNumber();
+		elseif(@get_class($number) == get_class($this))
+			return complexNumber(($this->a*$number->a + $this->b*$number->b)/($number->a*$number->a + $number->b*$number->b), ($this->b*$number->a - $this->a*$number->b)/($number->a*$number->a + $number->b*$number->b));
 	}
+
+	public function oneDivide() {
+		return complexNumber($this->a/($this->a*$this->a + $this->b*$this->b), -$this->b/($this->a*$this->a + $this->b*$this->b));
+	}
+
 
 	public function absolute() {
 		return sqrt($this->a*$this->a + $this->b*$this->b);
 	}
 
 	public function argument() {
-		if($this->b > 0)
-			return atan($this->a/$this->b);
-		elseif($this->b < 0 and $this->a > 0)
-			return atan($this->a/$this->b) + M_PI;
+		if($this->a > 0)
+			return atan($this->b/$this->a);
+		elseif($this->a < 0 and $this->b >= 0)
+			return M_PI + atan($this->b/$this->a);
 		elseif($this->a < 0 and $this->b < 0)
-			return atan($this->a/$this->b) - M_PI;
+			return atan($this->b/$this->a) - M_PI;
+		elseif($this->a == 0 and $this->b > 0)
+			return M_PI/2;
+		elseif($this->a == 0 and $this->b < 0)
+			return -M_PI/2;
 	}
 
-	public function root($n, $k = 0) {
-		$arg = $this->argument();
-		$mod = $this->absolute();
-		$r = $this->nRoot($mod, $n);
-		$t = ($arg + 2*M_PI*$k)/$n;
-		$this->tb = $r*cos($t);
-		$this->ta = $r*sin($t);
-		$this->a = $this->ta;
-		$this->b = $this->tb;
-	}
 
-	protected function nRoot($from, $n) {
-		$k = sqrt($from) * $n/2;
-		while(substr(exp($k, $n), strlen(intval($from)) + 3) != substr($from, strlen(intval($from)) + 3)) $k = 1/$n*round(($n-1)*$k + $from/exp($k, $n-1));
-		return $k;
-	}
-
-	public function power($exponent) {
-		if(is_numeric($exponent)) {
-			if($exponent == 1) return;
-			if($exponent == 0) {
-				$this->a = 0;
-				$this->b = 1;
-				return;
-			}
-			$frac = $exponent-intval($exponent);
-			if($frac == 0 and $exponent > 1)
-				for($i = 1;$i < $exponent;$i++) $this->multiply($this);
-			elseif($frac == 0 and $exponent < 0) {
-				eval('$one = new '.get_class($this).'(0, 1);'); // Aaa!!!
-				$one->divide($this->power(abs($exponent)));
-			} else {
-				$frac = substr($frac, strlen(intval($exponent))+1);
-				eval('$copy = new'.get_class($this).'('.$this->a.', '.$this->b.');'); // Aaa!!!
-				eval('$one = new '.get_class($this).'(0, 1);'); // Aaa!!!
-				for($i = 1;$i < $exponent*'1'.str_repeat('0', strlen($frac));$i++) $this->multiply($copy);
-				$copy->root('1'.str_repeat('0', strlen($frac)));
-				$one->divide($copy);
-				$this->a = $one->a;
-				$this->b = $one->b;
-			}
+	public function power($number) {
+		if(is_numeric($number)) {
+			$out = 1;
+			for($i = 0; $i < $number; $i++)
+				$out*=$number;
 		}
+	}
+
+	public function root($base = 2, $k = 1) {
+		if(is_numeric($base) and is_numeric($k))
+			return complexNumber(cos(($this->argument + 2*M_PI*$k)/$base), sin(($this->argument + 2*M_PI*$k)/$base))->multiply(realRoot($this->absolute(), $base));
+	}
+
+
+	protected function realRoot($number, $base) {
+		$out = $number/$base;
+		for($i = 0; $i < round(pow(M_E, $number)); $i++) 
+			$out = 1/$base * round(($base-1)*x + $number/(pow($out, $base-1)));
+		return $out;
 	}
 }
 ?>
