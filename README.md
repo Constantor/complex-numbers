@@ -10,7 +10,10 @@ This class support many main things to work with imaginary numbers, for example
   - divide complex by real
   - divide complex by complex
   - divide real by complex
-  - power complex number by integer exponent
+  - power complex number by real exponent (negative and fraction too)
+  - get integer root of complex number
+  - get argument of complex number
+  - get module (absolute) of complex number
 
 ### How to use
 Include the class file in your code. Than you need create as many numbers as you need. Complex numbers in the class have the form a*i+b, where a and b is real and i is imaginary unit. To create complex number use code like this:
@@ -35,6 +38,12 @@ class complexNumber {
 	void public function multiply(numeric/complexNumber $number) { ... } // Multiply $number to your complex number
 
 	void public function divide(numeric/complexNumber $number) { ... } // Divide $number to your complex number
+
+	float public function absolute() { ... } // Get an absolute (module) of the complex number
+
+	float public function argument() { ... } // Get an argument of the complex number
+
+	void public function root(int $n, $k = 0 /* Number of root (there are $n of them) */) { ... } // Make $n`s root of complex number
 
 	void public function power(int $exponent) { ... } // Power your complex number by $exponent
 }
