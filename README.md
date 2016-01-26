@@ -27,30 +27,30 @@ There are many methods to manipulate with created number, class structure:
 class complexNumber {
 	public var $a, $b; // a and b from a*i+b
 
-	void public function __construct(numeric $a, numeric $b) { ... } // Initialize class
+	boolean public function __construct(numeric $a, numeric $b) { ... } // Initialize class
 
-	string public function getNumber() { ... } // Returns $a.'*i+'.$b
+	string public function getNumber() { ... } // Returns $a.'+'.$b.'*i'
 
-	void public function add(numeric/complexNumber $number) { ... } // Add $number to your complex number
+	complexNumber public function add(numeric/complexNumber $number) { ... } // Add $number to your complex number
 
-	void public function subtract(numeric/complexNumber $number) { ... } // Subtract $number to your complex number
+	complexNumber public function sub(numeric/complexNumber $number) { ... } // Subtract $number to your complex number
 
-	void public function multiply(numeric/complexNumber $number) { ... } // Multiply $number to your complex number
+	complexNumber public function multiply(numeric/complexNumber $number) { ... } // Multiply $number to your complex number
 
-	void public function divide(numeric/complexNumber $number) { ... } // Divide $number to your complex number
+	complexNumber public function divide(numeric/complexNumber $number) { ... } // Divide $number to your complex number
 
 	float public function absolute() { ... } // Get an absolute (module) of the complex number
 
 	float public function argument() { ... } // Get an argument of the complex number
 
-	void public function root(int $n, $k = 0 /* Number of root (there are $n of them) */) { ... } // Make $n`s root of complex number
+	complexNumber public function power(numeric $number) { ... } // Power your complex number by $exponent
 
-	void public function power(int $exponent) { ... } // Power your complex number by $exponent
+	complexNumber public function root(int $base, $k = 0 /* Number of root (there are $base of them) */) { ... } // Make $base`s root of complex number
 }
 ```
 
 ### Version
-1.3
+2.1
 
 License
 ----

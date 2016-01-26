@@ -75,13 +75,36 @@ class complexNumber {
 
 	public function power($number) {
 		if(is_numeric($number)) {
-			$out = 1;
-			for($i = 0; $i < $number; $i++)
-				$out*=$number;
+			if($number == intval($number) and $number == abs($number)) {
+				$out = 1;
+				for($i = 0; $i < $number; $i++)
+					$out*=$number;
+				return $out;
+			} elseif($number == intval($number) and abs($number) == -$number) {
+				return complexNumber(1, 0)->divide($this->power(-$number))
+			} elseif($number != intval($number) and abs($number) == $number) {
+				$tmp = explode('.', $number);
+				$n = 1;
+				for($i = 0;$i < strlen($tmp[1]);$i++) {
+					$n *= 10;
+				}
+				$n+=0;
+				$m = $tmp[0].$tmp[1];
+				return $this->root($n, 1)->power($m);
+			} elseif($number != intval($number) and abs($number) != $number) {
+				$tmp = explode('.', $number);
+				$n = 1;
+				for($i = 0;$i < strlen($tmp[1]);$i++) {
+					$n *= 10;
+				}
+				$n+=0;
+				$m = $tmp[0].$tmp[1];
+				return $this->root($n, 1)->power(-$m);
+			}
 		}
 	}
 
-	public function root($base = 2, $k = 1) {
+	public function root($base = 2, $k = 0) {
 		if(is_numeric($base) and is_numeric($k))
 			return complexNumber(cos(($this->argument + 2*M_PI*$k)/$base), sin(($this->argument + 2*M_PI*$k)/$base))->multiply(realRoot($this->absolute(), $base));
 	}
