@@ -12,8 +12,12 @@ class complexNumber {
 	public $a, $b;
 
 	public function __construct($a = 0, $b = 0) {
-		$this->a = $a;
-		$this->b = $b;
+		if(is_numeric($a) and is_numeric($b)) {
+			$this->a = $a;
+			$this->b = $b;
+			return true;
+		} else
+			return false;
 	}
 
 	public function getNumber() {
