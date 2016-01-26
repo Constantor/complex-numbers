@@ -54,10 +54,6 @@ class complexNumber {
 			return complexNumber(($this->a*$number->a + $this->b*$number->b)/($number->a*$number->a + $number->b*$number->b), ($this->b*$number->a - $this->a*$number->b)/($number->a*$number->a + $number->b*$number->b));
 	}
 
-	public function oneDivide() {
-		return complexNumber($this->a/($this->a*$this->a + $this->b*$this->b), -$this->b/($this->a*$this->a + $this->b*$this->b));
-	}
-
 
 	public function absolute() {
 		return sqrt($this->a*$this->a + $this->b*$this->b);
