@@ -16,7 +16,7 @@ This class support many main things to work with imaginary numbers, for example
   - get module (absolute) of complex number
 
 ### How to use
-Include the class file in your code. Than you need create as many numbers as you need. Complex numbers in the class have the form a*i+b, where a and b is real and i is imaginary unit. To create complex number use code like this:
+Include the class file in your code. Than you need create as many numbers as you need. Complex numbers in the class have the form a+b*i, where a and b is real and i is imaginary unit. To create complex number use code like this:
 ```php
 ...
 $complexNumber1 = new complexNumber($a, $b);
@@ -25,7 +25,7 @@ $complexNumber1 = new complexNumber($a, $b);
 There are many methods to manipulate with created number, class structure:
 ```php
 class complexNumber {
-	public var $a, $b; // a and b from a*i+b
+	public var $a, $b; // a and b from a+b*i
 
 	boolean public function __construct(numeric $a, numeric $b) { ... } // Initialize class
 
